@@ -47,6 +47,16 @@ export const identifyContact = async (req, res) => {
                 if (email) emails.add(email);
                 if (phoneNumber) phoneNumbers.add(phoneNumber);
             }
+        } else {
+            // No existing contact found, create a new primary contact
+            const [newContact] = await db.query(
+                `INSERT INTO Contact (email, phoneNumber, linkPrecedence) VALUES (?, ?, ?)`,
+                [email, phoneNumber, "primary"]
+            );
+
+            primaryContactId = newContact.insertId;
+            if (email) emails.add(email);
+            if (phoneNumber) phoneNumbers.add(phoneNumber);
         }
     } catch (error) {
         console.error(error);
