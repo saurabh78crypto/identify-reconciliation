@@ -58,6 +58,15 @@ export const identifyContact = async (req, res) => {
             if (email) emails.add(email);
             if (phoneNumber) phoneNumbers.add(phoneNumber);
         }
+
+        return res.status(200).json({
+            contact: {
+                primaryContactId,
+                emails: Array.from(emails).filter(Boolean),
+                phoneNumbers: Array.from(phoneNumbers).filter(Boolean),
+                secondaryContactIds: secondaryContacts,
+            }
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "Internal Server Error"});
