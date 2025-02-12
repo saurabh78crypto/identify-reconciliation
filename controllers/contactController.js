@@ -34,6 +34,19 @@ export const identifyContact = async (req, res) => {
                     secondaryContacts.push(contact.id);
                 }
             });
+
+            // If the provided email or phone is not already present, create a new secondary contact
+            const isNewContact = !contacts.some(c => c.email === email && c.phoneNumber === phoneNumber);
+            if (isNewContact) {
+                const [newContact] = await db.query(
+                    `INSERT INTO Contact (email, phoneNumber, linkedId, linkPrecedence) VALUES (?, ?, ?, ?)`,
+                    [email, phoneNumber, primaryContactId, "secondary"]
+                );
+
+                secondaryContacts.push(newContact.insertId);
+                if (email) emails.add(email);
+                if (phoneNumber) phoneNumbers.add(phoneNumber);
+            }
         }
     } catch (error) {
         console.error(error);
