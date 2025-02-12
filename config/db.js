@@ -8,4 +8,14 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
 });
 
+// Test connection
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error("Database connection failed:", err.message);
+    } else {
+        console.log("Connected to the MySQL database!");
+        connection.release();
+    }
+});
+
 export default pool.promise();
