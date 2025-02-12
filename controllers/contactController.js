@@ -1,7 +1,7 @@
-import db from "./config/db.js";
+import db from "../config/db.js";
 
 // Identify and consolidate contact information
-exports.identifyContact = async (req, res) => {
+export const identifyContact = async (req, res) => {
     const { email, phoneNumber } = req.body;
 
     if(!email && !phoneNumber) {
