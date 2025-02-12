@@ -8,6 +8,10 @@ This is a simple Node.js and Express-based API that identifies and consolidates 
 - Creates new contacts when necessary.
 - Returns consolidated contact details in a structured JSON response.
 
+## Hosted API
+The API is deployed and accessible at:  
+**[Live Endpoint](https://identify-reconciliation-0lw6.onrender.com/api/identify)**
+
 ## Technologies Used
 - Node.js
 - Express.js
